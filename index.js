@@ -18,9 +18,7 @@ console.log('          from', from)
 console.log('            to', to)
 console.log('balance-filter', balance)
 
-let i = from
-let ii = i
-
+let ii = from
 while (ii <= to){
     let res = request(
         'POST', 
