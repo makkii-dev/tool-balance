@@ -45,8 +45,11 @@ while (ii <= to){
     
     if(body.result) {
         let b = parseInt((new bn(body.result)).dividedBy(decimal).toFixed(0))
+        if (ii % 1000 == 0) {
+            console.log('checking at block', ii)
+        }
         if (b < balance)
-            console.log('block', ii, 'balance', balance)
+            console.log('block', ii, 'balance', b)
     }
 
     ii++
