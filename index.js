@@ -1,22 +1,26 @@
 const request = require('sync-request')
+const bn = require('bignumber.js')
+const decimal = new bn(1000000000000000000)
 
-if (process.argv.length != 6) {
+if (process.argv.length != 7) {
     return
 }
 
 let host = process.argv[2],
     address = process.argv[3], 
     from = parseInt(process.argv[4]),
-    to = parseInt(process.argv[5])
+    to = parseInt(process.argv[5]),
+    balance = parseInt(process.argv[6])
 
-console.log('   host', host)
-console.log('address', address)
-console.log('   from', from)
-console.log('     to', to)
+console.log('          host', host)
+console.log('       address', address)
+console.log('          from', from)
+console.log('            to', to)
+console.log('balance-filter', balance)
 
 let i = from
 let ii = i
-console.log('ii', ii)
+
 while (ii <= to){
     let res = request(
         'POST', 
@@ -36,6 +40,14 @@ while (ii <= to){
             }
         }
     )
-    console.log(JSON.parse(res.getBody('utf8')))
+
+    let body = JSON.parse(res.getBody('utf8'))
+    
+    if(body.result) {
+        let b = parseInt((new bn(body.result)).dividedBy(decimal).toFixed(0))
+        if (b < balance)
+            console.log('block', ii, 'balance', balance)
+    }
+
     ii++
 }
