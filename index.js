@@ -48,6 +48,10 @@ while (ii <= to){
         }
         if (b < balance)
             console.log('block', ii, 'balance', b)
+    } 
+
+    if (body.err) {
+        console.log(body.err)
     }
 
     ii++
